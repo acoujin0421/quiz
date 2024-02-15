@@ -95,12 +95,14 @@ async function fetchQuiz() {
 
 function checkAnswer() {
   var userAnswer = document.getElementById("user-answer").value;
+  var normalizedUserAnswer = userAnswer.replace(/\s+/g, '').toLowerCase(); // 모든 공백 제거 및 소문자 변환
+  var normalizedCorrectAnswer = window.correctAnswer.replace(/\s+/g, '').toLowerCase(); // 정답에서도 모든 공백 제거 및 소문자 변환
 
-  if (userAnswer.trim().toLowerCase() === window.correctAnswer.toLowerCase()) {
+  if (normalizedUserAnswer === normalizedCorrectAnswer) {
     score++;
     document.getElementById("score").innerText = `점수: ${score}`;
     document.getElementById("result").innerText = "정답입니다!";
-    fetchQuiz();
+    fetchQuiz(); // 다음 문제를 자동으로 불러옴
   } else {
     document.getElementById("result").innerText = "다시 한 번 잘 생각해 보세요";
   }
